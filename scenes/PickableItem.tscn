@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cgdu2jkmpnbdh"]
+
+[ext_resource type="Script" uid="uid://dxciw4ibdlnm4" path="res://scripts/Pickable.gd" id="1_75udb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j6kxj"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_75udb"]
+
+[node name="PickableItem" type="RigidBody3D" unique_id=1585297522]
+script = ExtResource("1_75udb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2018559272]
+shape = SubResource("BoxShape3D_j6kxj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1066185024]
+mesh = SubResource("PrismMesh_75udb")

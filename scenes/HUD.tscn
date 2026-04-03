@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://byuonsutbsaun"]
+
+[sub_resource type="GDScript" id="GDScript_jvwwx"]
+script/source = "extends CanvasLayer
+
+@onready var item_count_label: Label = $BottomBar/ItemCountLabel
+@onready var movement_label: Label = $BottomBar/MovementLabel
+
+@onready var player = %Player
+
+func _process(_delta):
+	if player == null:
+		return
+	
+	update_movement_state(player.is_sprinting, player.is_crouching)
+	update_item_count(player.inventory.size(), player.MAX_INVENTORY_SLOTS)
+
+func update_movement_state(is_sprinting: bool, is_crouching: bool):
+	if is_crouching:
+		movement_label.text = \"🧎 Crouching\"
+		movement_label.modulate = Color(0.6, 0.9, 1.0)
+	elif is_sprinting:
+		movement_label.text = \"💨 Sprinting\"
+		movement_label.modulate = Color(1.0, 0.85, 0.2)
+	else:
+		movement_label.text = \"\"
+
+func update_item_count(count: int, max_slots: int):
+	item_count_label.text = \"🎒 %d / %d\" % [count, max_slots]
+"
+
+[node name="Hud" type="CanvasLayer" unique_id=872498462]
+script = SubResource("GDScript_jvwwx")
+
+[node name="Panel" type="Panel" parent="." unique_id=1006070570]
+offset_right = 226.0
+offset_bottom = 99.0
+
+[node name="Label" type="Label" parent="Panel" unique_id=1024973656]
+layout_mode = 0
+offset_right = 93.0
+offset_bottom = 23.0
+text = "Player Information"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1922650976]
+layout_mode = 0
+offset_top = 27.0
+offset_right = 256.0
+offset_bottom = 77.0
+
+[node name="Movement" type="Label" parent="Panel/VBoxContainer" unique_id=1583527002]
+layout_mode = 2
+
+[node name="ItemCount" type="Label" parent="Panel/VBoxContainer" unique_id=1172853090]
+layout_mode = 2
